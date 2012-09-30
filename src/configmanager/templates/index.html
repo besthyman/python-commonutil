@@ -1,0 +1,15 @@
+<html>
+  <head><title>Config Item</title>
+  </head>
+  <body>
+    <form action="/configitem" method="POST">
+    Key: <input type="text" name="key" value="" size="100"/>
+    <br/><textarea name="value" rows="20" cols="130"></textarea>
+    <br/><input type="submit" value="Save" />
+    </form>
+    {% for item in items %}
+        <br/><br/>{{ item.key }}: {{ item.value }}
+    {% endfor %}
+  </body>
+</html>
+
