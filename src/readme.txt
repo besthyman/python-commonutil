@@ -7,3 +7,7 @@ If you’re using a version of Python 2 earlier than 2.7.3, or a version of Pyth
 
 lxml on google app engine: If you use python2.7 on AppEngine, the lxml library is supported.
 local test: sudo apt-get install python-lxml
+
+# soupselect
+https://code.google.com/p/soupselect/source/browse/trunk/soupselect.py?edit=1
+
