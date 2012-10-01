@@ -12,3 +12,6 @@ pyquery 1.2.1: http://pypi.python.org/pypi/pyquery
 httplib2: http://httplib2.googlecode.com/files/httplib2-0.7.6.zip
 https://github.com/simplegeo/python-oauth2
 
+# jsonpickle
+http://pypi.python.org/packages/source/j/jsonpickle/jsonpickle-0.4.0.tar.gz
+
