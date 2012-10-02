@@ -34,6 +34,14 @@ class TestPyQuery(unittest.TestCase):
         self.assertEquals(htmlelement.get('title'), 'title1')
         self.assertIsNone(htmlelement.get('title2'))
 
+        queryobj = rootqueryobj('a')
+        self.assertEquals(len(queryobj), 2)
+
+        # It is will behave obviously if we pass a unicode selector.
+        # It takes me a long time to debug it.
+        queryobj = rootqueryobj(u'a')
+        self.assertEquals(len(queryobj), 1)
+
 if __name__ == '__main__':
     unittest.main()
 
