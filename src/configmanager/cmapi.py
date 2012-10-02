@@ -16,28 +16,30 @@ def _getCacheKey(key):
 
 def _setCache(cachekey, jsonvalue):
     client = memcache.Client()
-    print type(client)
-    while True:
-        oldvalue = client.gets(cachekey)
-        if not oldvalue:
-            memcache.add(cachekey, jsonvalue)
-            break
+    oldvalue = client.gets(cachekey)
+    success = False
+    if not oldvalue:
+        memcache.add(cachekey, jsonvalue)
+        success = True
+    else:
         if client.cas(cachekey, jsonvalue):
-            break
+            success = True
+    return success
 
 def getItemValue(key):
     cachekey = _getCacheKey(key)
     jsonvalue = memcache.get(cachekey)
-    if not jsonobj:
+    if not jsonvalue:
         configitem = ConfigItem.get_by_key_name(key)
-        jsonvalue = jsonpickle.decode(configitem.value)
-        _setCache(cachekey, jsonvalue)
-    return jsonobj
+        if configitem:
+            jsonvalue = jsonpickle.decode(configitem.value)
+            _setCache(cachekey, jsonvalue)
+    return jsonvalue
 
 def saveItem(key, jsonvalue):
     strvalue = jsonpickle.encode(jsonvalue)
     item = ConfigItem(key_name=key, value=strvalue)
     item.put()
     cachekey = _getCacheKey(key)
-    _setCache(cachekey, jsonvalue)
+    return _setCache(cachekey, jsonvalue)
 

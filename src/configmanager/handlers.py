@@ -2,7 +2,7 @@ import jsonpickle
 import os
 import webapp2
 from google.appengine.ext.webapp import template
-from . import modelapi
+from . import cmapi
 
 class MainPage(webapp2.RequestHandler):
 
@@ -12,7 +12,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(path, templateValues))
 
     def get(self):
-        items = modelapi.getRawItems()
+        items = cmapi.getRawItems()
         templateValues = {
             'items': items,
         }
@@ -22,6 +22,6 @@ class MainPage(webapp2.RequestHandler):
         key = self.request.get('key')
         value = self.request.get('value')
         jsonvalue = jsonpickle.decode(value)
-        modelapi.saveItem(key, jsonvalue)
+        cmapi.saveItem(key, jsonvalue)
         self.get()
 
