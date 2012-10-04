@@ -1,8 +1,11 @@
 """
 Save item value to memcache to improve performance.
 """
-import jsonpickle
 from google.appengine.api import memcache
+from google.appengine.ext import db
+
+import jsonpickle
+
 from .models import ConfigItem
 
 def getRawItems():
@@ -20,7 +23,7 @@ def _setCache(cachekey, jsonvalue):
     oldvalue = client.gets(cachekey)
     success = False
     if not oldvalue:
-        memcache.add(cachekey, jsonvalue)
+        memcache.set(cachekey, jsonvalue)
         success = True
     else:
         if client.cas(cachekey, jsonvalue):
@@ -39,10 +42,19 @@ def getItemValue(key):
 
 def saveItem(key, jsonvalue):
     cachekey = _getCacheKey(key)
+    if not jsonvalue:
+        return True
     success = _setCache(cachekey, jsonvalue)
     if success:# if we fail to save value to cache, we should not put it into db.
         strvalue = jsonpickle.encode(jsonvalue)
         item = ConfigItem(key_name=key, value=strvalue)
         item.put()
     return success
+
+def removeItem(key):
+    cachekey = _getCacheKey(key)
+    memcache.delete(cachekey)
+    keyobj = db.Key.from_path('ConfigItem', key)
+    db.delete(keyobj)
+    return True
 
