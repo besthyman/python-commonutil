@@ -14,6 +14,7 @@ def getRawItems():
 def _getCacheKey(key):
     return 'configitem-%s' % key
 
+# thread safe visit to cache
 def _setCache(cachekey, jsonvalue):
     client = memcache.Client()
     oldvalue = client.gets(cachekey)
@@ -37,9 +38,11 @@ def getItemValue(key):
     return jsonvalue
 
 def saveItem(key, jsonvalue):
-    strvalue = jsonpickle.encode(jsonvalue)
-    item = ConfigItem(key_name=key, value=strvalue)
-    item.put()
     cachekey = _getCacheKey(key)
-    return _setCache(cachekey, jsonvalue)
+    success = _setCache(cachekey, jsonvalue)
+    if success:# if we fail to save value to cache, we should not put it into db.
+        strvalue = jsonpickle.encode(jsonvalue)
+        item = ConfigItem(key_name=key, value=strvalue)
+        item.put()
+    return success
 
