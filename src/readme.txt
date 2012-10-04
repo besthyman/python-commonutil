@@ -16,3 +16,8 @@ https://github.com/simplegeo/python-oauth2
 # jsonpickle
 http://pypi.python.org/packages/source/j/jsonpickle/jsonpickle-0.4.0.tar.gz
 
+# yaml module 
+It is default module on GAE.
+But It can not be loaded by export PYTHONPATH="$HOME/bin/google_appengine:$PYTHONPATH"
+Then we can not run unit test which depends on google.appengine.ext.db
+Manually install in on local: download from "http://pyyaml.org/wiki/PyYAML", run "sudo python setup.py install"

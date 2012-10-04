@@ -1,0 +1,14 @@
+- name: headline
+  rate: 1/s
+  bucket_size: 1
+  max_concurrent_requests: 1
+
+If your queue contains tasks to process, and the queue's bucket contains tokens, App Engine processes as many tasks as there are tokens remaining in the bucket. 
+
+rate: the rate to put token into bucket.
+bucket_size: the maximum of token.
+token: token is needed to process a task in queue.
+
+max_concurrent_requests: how many tasks are allowed to be processed at the same time.
+
+I set max_concurrent_requests to 1, so it will only require a front instance to hanlde the tasks in this queue.
