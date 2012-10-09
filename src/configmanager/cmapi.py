@@ -30,14 +30,15 @@ def _setCache(cachekey, jsonvalue):
             success = True
     return success
 
-def getItemValue(key):
+def getItemValue(key, defaultValue=None):
     cachekey = _getCacheKey(key)
     jsonvalue = memcache.get(cachekey)
     if not jsonvalue:
         configitem = ConfigItem.get_by_key_name(key)
-        if configitem:
-            jsonvalue = jsonpickle.decode(configitem.value)
-            _setCache(cachekey, jsonvalue)
+        if not configitem:
+            return defaultValue
+        jsonvalue = jsonpickle.decode(configitem.value)
+        _setCache(cachekey, jsonvalue)
     return jsonvalue
 
 def saveItem(key, jsonvalue):
