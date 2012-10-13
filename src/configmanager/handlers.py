@@ -19,7 +19,7 @@ class MainPage(webapp2.RequestHandler):
         key = self.request.get('selectedkey')
         if not key:
             key = self.request.get('key')
-        value = self.request.get('value')
+        value = ''
 
         modelname = self.request.get('modelname')
         if modelname:
@@ -27,7 +27,7 @@ class MainPage(webapp2.RequestHandler):
             keys = []
             for item in items:
                 keys.append(item['key'])
-                if key and not value and item['key'] == key:
+                if key and item['key'] == key:
                     value = item['value']
             keys.sort()
         else:
