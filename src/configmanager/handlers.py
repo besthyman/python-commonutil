@@ -16,9 +16,9 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(path, templateValues))
 
     def get(self, message=''):
-        key = self.request.get('selectedkey')
+        key = self.request.get('key')
         if not key:
-            key = self.request.get('key')
+            key = self.request.get('selectedkey')
         value = ''
 
         modelname = self.request.get('modelname')
@@ -59,9 +59,9 @@ class MainPage(webapp2.RequestHandler):
             self.get()
             return
 
-        key = self.request.get('selectedkey')
+        key = self.request.get('key')
         if not key:
-            key = self.request.get('key')
+            key = self.request.get('selectedkey')
         value = self.request.get('value')
         message = ''
         action = self.request.get('action')

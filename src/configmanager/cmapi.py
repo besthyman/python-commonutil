@@ -1,6 +1,7 @@
 """
 Save item value to memcache to improve performance.
 """
+import logging
 from google.appengine.api import memcache
 from google.appengine.ext import db
 
@@ -81,12 +82,14 @@ def getModelNames():
 def _getManager(modelname):
     if not modelname:
         return DEFAULT_MANAGER
+    if not isinstance(modelname, basestring):
+        modelname = modelname.__name__
     return REGISTERED_MODELS[modelname]
 
 def getRawItems(modelname=None):
     return _getManager(modelname).getRawItems()
 
-def getItemValue(self, keyname, defaultValue=None, modelname=None):
+def getItemValue(keyname, defaultValue=None, modelname=None):
     return _getManager(modelname).getItemValue(keyname, defaultValue)
 
 def saveItem(keyname, jsonvalue, modelname=None):
