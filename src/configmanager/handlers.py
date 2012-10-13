@@ -16,8 +16,9 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(path, templateValues))
 
     def get(self, message=''):
-        key = self.request.get('key')
-        if not key:
+        if self.request.get('action') == 'Add':
+            key = self.request.get('key')
+        else:
             key = self.request.get('selectedkey')
         value = ''
 
@@ -59,9 +60,11 @@ class MainPage(webapp2.RequestHandler):
             self.get()
             return
 
-        key = self.request.get('key')
-        if not key:
+        if self.request.get('action') == 'Add':
+            key = self.request.get('key')
+        else:
             key = self.request.get('selectedkey')
+
         value = self.request.get('value')
         message = ''
         action = self.request.get('action')
@@ -69,7 +72,7 @@ class MainPage(webapp2.RequestHandler):
             if action == 'Remove':
                 if not cmapi.removeItem(key, modelname=modelname):
                     message = 'Failed to delete value from cache and db.'
-            elif action == 'Save':
+            elif action in ['Add', 'Update', ]:
                 jsonvalue = jsonpickle.decode(value)
                 if not cmapi.saveItem(key, jsonvalue, modelname=modelname):
                     message = 'Failed to put value into cache and db.'
