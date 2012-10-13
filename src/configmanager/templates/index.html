@@ -4,19 +4,25 @@
 <title>Config Item</title>
   </head>
   <body>
-    <form action="/configitem" method="GET">
-    <select name="key">
-      <option value="">all</option>
+    Message: {{ message }}
+    <form action="/configitem" method="POST">
+    <select name="modelname">
+      <option value="">--</option>
+      {% for curname in modelnames %}
+      <option value="{{ curname }}" {% if curname == modelname %}selected{% endif %}>{{ curname }}</option>
+      {% endfor %}
+    </select>
+    <select name="selectedkey">
+      <option value="">--</option>
       {% for curkey in keys %}
       <option value="{{ curkey }}" {% if curkey == key %}selected{% endif %}>{{ curkey }}</option>
       {% endfor %}
     </select>
-    <input type="submit" value="Query" />
-    </form>{{ message }}
-    <form action="/configitem" method="POST">
-    Key: <input type="text" name="key" value="{{ key }}" size="100"/>
+    <input name="action" type="submit" value="Query" />
+    <br/>Key: <input type="text" name="key" value="{{ key }}" size="60"/>
     <br/><textarea name="value" rows="20" cols="130">{{ value }}</textarea>
-    <br/><input type="submit" value="Save" />
+    <br/><input name="action" type="submit" value="Save" />
+    <input name="action" type="submit" value="Remove" />
     </form>
     {% for item in items %}
         <br/><br/>{{ item.key }}: {{ item.value }}

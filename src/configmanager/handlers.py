@@ -16,16 +16,35 @@ class MainPage(webapp2.RequestHandler):
         self.response.out.write(template.render(path, templateValues))
 
     def get(self, message=''):
-        items = cmapi.getRawItems()
-        key = self.request.get('key')
+        key = self.request.get('selectedkey')
+        if not key:
+            key = self.request.get('key')
         value = self.request.get('value')
-        keys = []
-        for item in items:
-            keys.append(item['key'])
-            if key and not value and item['key'] == key:
-                value = item['value']
-        keys.sort()
+
+        modelname = self.request.get('modelname')
+        if modelname:
+            items = cmapi.getRawItems(modelname=modelname)
+            keys = []
+            for item in items:
+                keys.append(item['key'])
+                if key and not value and item['key'] == key:
+                    value = item['value']
+            keys.sort()
+        else:
+            keys = []
+            items = []
+            message = 'Please select a model'
+
+
+        if self.request.get('action') == 'Remove':
+            key = ''
+            value = ''
+
+        modelnames = cmapi.getModelNames()
+
         templateValues = {
+            'modelname': modelname,
+            'modelnames': modelnames,
             'key': key,
             'value': value,
             'keys': keys,
@@ -35,17 +54,25 @@ class MainPage(webapp2.RequestHandler):
         self._render(templateValues)
 
     def post(self):
-        key = self.request.get('key')
+        modelname = self.request.get('modelname')
+        if not modelname:
+            self.get()
+            return
+
+        key = self.request.get('selectedkey')
+        if not key:
+            key = self.request.get('key')
         value = self.request.get('value')
         message = ''
+        action = self.request.get('action')
         try:
-            if value:
-                jsonvalue = jsonpickle.decode(value)
-                if not cmapi.saveItem(key, jsonvalue):
-                    message = 'Failed to put value into cache and db.'
-            else:
-                if not cmapi.removeItem(key):
+            if action == 'Remove':
+                if not cmapi.removeItem(key, modelname=modelname):
                     message = 'Failed to delete value from cache and db.'
+            elif action == 'Save':
+                jsonvalue = jsonpickle.decode(value)
+                if not cmapi.saveItem(key, jsonvalue, modelname=modelname):
+                    message = 'Failed to put value into cache and db.'
         except ValueError:
             message = 'Failed to decode the input value.'
         self.get(message=message)
