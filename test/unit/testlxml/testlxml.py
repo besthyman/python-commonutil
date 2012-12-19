@@ -39,6 +39,17 @@ class TestLxml(unittest.TestCase):
         print cleanedtext
         self.assertEquals(cleanedtext, u'民生为本 人才优先')
 
+    """
+    clean_html will generate a copy of the old one, the the new copy celement.parent is None
+    """
+    def testCleanParent(self):
+        content = """<html><body><DIV class="c1" title="title1"><a>link<span>1</span><script>2</script></a></DIV><script>s</script></body></html>"""
+        htmlelement = lxml.html.fromstring(content)
+        child = htmlelement.getchildren()[0].getchildren()[0]
+        cleaner = lxml.html.clean.Cleaner()
+        cchild = cleaner.clean_html(child)
+        self.assertIsNotNone(child.getparent())
+        self.assertIsNone(cchild.getparent())
 
 if __name__ == '__main__':
     unittest.main()

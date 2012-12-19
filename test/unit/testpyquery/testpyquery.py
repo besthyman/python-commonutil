@@ -42,6 +42,20 @@ class TestPyQuery(unittest.TestCase):
         queryobj = rootqueryobj(u'a')
         self.assertEquals(len(queryobj), 1)
 
+
+    def testBasicNotMatch(self):
+        content = """<html><body>
+<DIV class="c1" title="title1"><a>link<span>1</span></a></DIV>
+<DIV class="c1" title="title1"><a>link<span>1</span></a></DIV>
+</body></html>
+"""
+        htmlelement = lxml.html.fromstring(content)
+        self.assertTrue(type(htmlelement) == lxml.html.HtmlElement)
+
+        match = pyquery.PyQuery(htmlelement)('div.cnot')
+        self.assertEquals(len(match), 0)
+        self.assertEquals(match, [])
+
 if __name__ == '__main__':
     unittest.main()
 
