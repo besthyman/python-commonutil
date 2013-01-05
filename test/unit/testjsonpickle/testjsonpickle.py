@@ -4,6 +4,8 @@ import datetime
 
 import unittest
 import jsonpickle
+import datetime
+from pytz.gae import pytz
 
 class TestJsonPickle(unittest.TestCase):
 
@@ -21,6 +23,13 @@ class TestJsonPickle(unittest.TestCase):
         value = jsonpickle.encode(ns)
         ns2 = jsonpickle.decode(value)
         self.assertEquals(ns, ns2)
+
+    def testTimezone(self):
+        nnow = datetime.datetime.now(tz=pytz.utc)
+        strvalue = jsonpickle.encode(nnow)
+        print 'date', strvalue
+        value = jsonpickle.decode(strvalue)
+        self.assertIsNone(value)
 
 
 if __name__ == '__main__':

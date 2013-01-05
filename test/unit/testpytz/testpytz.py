@@ -15,7 +15,6 @@ class TestBase(unittest.TestCase):
         date = datetime.datetime.now(tz=pytz.utc)
         print 'Current date & time is:', date.strftime(date_format)
 
-        # must run on GAE environment?
         date = date.astimezone(pytz.timezone('US/Pacific'))
 
         print 'Local date & time is  :', date.strftime(date_format)
