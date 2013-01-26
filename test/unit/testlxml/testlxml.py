@@ -51,6 +51,34 @@ class TestLxml(unittest.TestCase):
         self.assertIsNotNone(child.getparent())
         self.assertIsNone(cchild.getparent())
 
+    """One advantage of the lxml view is that a tree is now made of only one type of node: each node is an Element instance.
+    .tail
+    The text following the element. This is the most unusual departure. In the DOM model, any text following an element E is associated with the parent of E; in lxml, that text is considered the “tail” of E.
+
+    lxml.HTMLElement.text and lxml.HTMLElement.tail    
+    These are where lxml put text node.    
+    There are no text node in lxml.
+    Text node is field of HTMLElement, not children.
+    """
+    def testTextNode(self):
+        content = """
+        <body>123<div>abc.<br>efg.<br>hij</div>456</body>
+        """
+        htmlelement = lxml.html.fromstring(content)
+        # element.tail is not part of element.text_content()
+        # div.tail is 456, which is the text node after div.
+        print 'htmlelement.tail'
+        count = 0
+        for child in htmlelement.iter():
+            count += 1
+            print child, child.text, 'end', child.tail
+        self.assertEquals(count, 4)
+        print 'htmlelement.itertext'
+        count = 0
+        for child in htmlelement.itertext():
+            count += 1
+        self.assertEquals(count, 5)
+
 if __name__ == '__main__':
     unittest.main()
 
