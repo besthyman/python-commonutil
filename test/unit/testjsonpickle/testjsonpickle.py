@@ -12,7 +12,7 @@ class TestJsonPickle(unittest.TestCase):
     def setUp(self):
         pass
 
-    def testBasic(self):
+    def testReference(self):
         n = datetime.datetime.utcnow()
         ns = [n, n]
         value = jsonpickle.encode(ns)
@@ -31,6 +31,12 @@ class TestJsonPickle(unittest.TestCase):
         value = jsonpickle.decode(strvalue)
         self.assertIsNone(value)
 
+    def testLxml(self):
+        # lxml.etree._ElementUnicodeResult
+        # jsonpickle.encode(_ElementUnicodeResult) will always return null
+        # but json.dumps works fine
+        # lxml.etree._ElementUnicodeResult.strip() return basestring
+        pass
 
 if __name__ == '__main__':
     unittest.main()
