@@ -79,6 +79,13 @@ class TestLxml(unittest.TestCase):
             count += 1
         self.assertEquals(count, 5)
 
+    """
+    ValueError: Unicode strings with encoding declaration are not supported.
+    """
+    def testUnicodeEncoding(self):
+        content = u'<?xml version="1.0" encoding="utf-8" ?><foo><bar/></foo>'
+        self.assertRaises(ValueError, lxml.html.fromstring, content)
+
 if __name__ == '__main__':
     unittest.main()
 
