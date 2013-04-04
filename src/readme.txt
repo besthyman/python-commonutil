@@ -26,3 +26,7 @@ Manually install in on local: download from "http://pyyaml.org/wiki/PyYAML", run
 gaepytz-2011h
 http://pypi.python.org/pypi/gaepytz
 
+# smallseg
+smallseg_0.6.tar.gz
+https://code.google.com/p/smallseg/
+
