@@ -1,0 +1,7 @@
+1.
+File "/home/hyman/workspace-gae/newsshow/src/library/jieba/__init__.py", line 39, in <module>
+    cache_file = os.path.join(tempfile.gettempdir(),"jieba.cache")
+  File "/home/hyman/bin/google_appengine/google/appengine/dist/tempfile.py", line 61, in PlaceHolder
+    raise NotImplementedError("Only tempfile.TemporaryFile is available for use")
+NotImplementedError: Only tempfile.TemporaryFile is available for use
+

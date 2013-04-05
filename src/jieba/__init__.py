@@ -36,9 +36,12 @@ _curpath=os.path.normpath( os.path.join( os.getcwd(), os.path.dirname(__file__) 
 
 print >> sys.stderr, "Building Trie..."
 t1 = time.time()
-cache_file = os.path.join(tempfile.gettempdir(),"jieba.cache")
+# cache_file = os.path.join(tempfile.gettempdir(),"jieba.cache")
+cache_file = os.path.join(_curpath, "jieba.cache")
+print >> sys.stderr, cache_file
 load_from_cache_fail = True
-if os.path.exists(cache_file) and os.path.getmtime(cache_file)>os.path.getmtime(os.path.join(_curpath,"dict.txt")):
+# if os.path.exists(cache_file) and os.path.getmtime(cache_file)>os.path.getmtime(os.path.join(_curpath,"dict.txt")):
+if os.path.exists(cache_file):
 	print >> sys.stderr, "loading model from cache"
 	try:
 		trie,FREQ,total,min_freq = marshal.load(open(cache_file,'rb'))
