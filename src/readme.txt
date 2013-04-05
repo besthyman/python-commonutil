@@ -34,3 +34,11 @@ https://code.google.com/p/smallseg/
 jieba-0.25.zip
 https://pypi.python.org/pypi/jieba/
 
+# yuicompressor
+http://yui.github.com/yuicompressor/
+http://yuilibrary.com/download/builder/
+YUI Build Tool(builder\componentbuild\lib\yuicompressor\yuicompressor-2.4.2.jar)
+
+# jQCloud
+https://github.com/lucaong/jQCloud
+
