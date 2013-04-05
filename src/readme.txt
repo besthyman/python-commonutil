@@ -30,3 +30,7 @@ http://pypi.python.org/pypi/gaepytz
 smallseg_0.6.tar.gz
 https://code.google.com/p/smallseg/
 
+# jieba
+jieba-0.25.zip
+https://pypi.python.org/pypi/jieba/
+
