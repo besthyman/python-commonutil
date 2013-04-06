@@ -33,6 +33,9 @@ https://code.google.com/p/smallseg/
 # jieba
 jieba-0.25.zip
 https://pypi.python.org/pypi/jieba/
+I do some changes to jieba/__init__.py:
+1. add initialize method to do initilize explicitly;
+2. jieba.cache,jieba.small.cache files can be used to avoid file write operation and then can works on GAE.
 
 # yuicompressor
 http://yui.github.com/yuicompressor/

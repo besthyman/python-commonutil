@@ -1,7 +1,18 @@
-1.
+1. Without change, using original jieba on GAE:
 File "/home/hyman/workspace-gae/newsshow/src/library/jieba/__init__.py", line 39, in <module>
     cache_file = os.path.join(tempfile.gettempdir(),"jieba.cache")
   File "/home/hyman/bin/google_appengine/google/appengine/dist/tempfile.py", line 61, in PlaceHolder
     raise NotImplementedError("Only tempfile.TemporaryFile is available for use")
 NotImplementedError: Only tempfile.TemporaryFile is available for use
+
+2. use default jieba.cache on default front instance on GAE:
+2013-04-06 23:37:08.255
+
+Exceeded soft private memory limit with 159.297 MB after servicing 12 requests total
+
+W 2013-04-06 23:37:08.255
+
+While handling this request, the process that handled this request was found to be using too much memory and was terminated. This is likely to cause a new process to be used for the next request to your application. If you see this message frequently, you may have a memory leak in your application.
+
+3. jieba.cache(17M+) can run on default backend instance on GAE(which has 256M).
 
