@@ -12,6 +12,9 @@
 (function( $ ) {
   "use strict";
   $.fn.jQCloud = function(word_array, options) {
+    function mockRandom() {
+        return 0.5;
+    }
     // Reference to the container element
     var $this = this;
     // Namespace word ids to avoid collisions between multiple clouds
@@ -79,7 +82,7 @@
         // Define the ID attribute of the span that will wrap the word, and the associated jQuery selector string
         var word_id = cloud_namespace + "_word_" + index,
             word_selector = "#" + word_id,
-            angle = 6.28 * Math.random(),
+            angle = 6.28 * mockRandom(),
             radius = 0.0,
 
             // Only used if option.shape == 'rectangular'
@@ -158,16 +161,16 @@
             }
             switch(quarter_turns % 4) {
               case 1:
-                left += step * aspect_ratio + Math.random() * 2.0;
+                left += step * aspect_ratio + mockRandom() * 2.0;
                 break;
               case 2:
-                top -= step + Math.random() * 2.0;
+                top -= step + mockRandom() * 2.0;
                 break;
               case 3:
-                left -= step * aspect_ratio + Math.random() * 2.0;
+                left -= step * aspect_ratio + mockRandom() * 2.0;
                 break;
               case 0:
-                top += step + Math.random() * 2.0;
+                top += step + mockRandom() * 2.0;
                 break;
             }
           } else { // Default settings: elliptic spiral shape
