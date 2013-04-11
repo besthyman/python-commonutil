@@ -86,6 +86,17 @@ class TestLxml(unittest.TestCase):
         content = u'<?xml version="1.0" encoding="utf-8" ?><foo><bar/></foo>'
         self.assertRaises(ValueError, lxml.html.fromstring, content)
 
+    """
+    A fix has been submitted for lxml 2.3.1:
+    https://github.com/lxml/lxml/commit/c531d3326cd1e6fd888299518d49acad5fd3b627
+    """
+    def testCleanerBug(self):
+        content = '<ZyNETERROR>Parsing form data failed.</ZyNETERROR>'
+        element = lxml.html.fromstring(content)
+        cleaner = lxml.html.clean.Cleaner()
+        # assert parent is not None
+        self.assertRaises(AssertionError, cleaner.clean_html, element)
+
 if __name__ == '__main__':
     unittest.main()
 
