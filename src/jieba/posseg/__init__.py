@@ -25,7 +25,14 @@ prob_start = load_model("prob_start.py")
 prob_trans = load_model("prob_trans.py")
 prob_emit = load_model("prob_emit.py")
 char_state_tab = load_model("char_state_tab.py")
-word_tag_tab = load_model("../dict.txt")
+word_tag_tab = None
+
+def loadDictModel(usingSmall):
+	global word_tag_tab
+	if usingSmall:
+		word_tag_tab = load_model("../dict.txt.small")
+	else:
+		word_tag_tab = load_model("../dict.txt")
 
 class pair(object):
 	def __init__(self,word,flag):
