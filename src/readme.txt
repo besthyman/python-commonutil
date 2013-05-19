@@ -15,6 +15,8 @@ https://github.com/simplegeo/python-oauth2
 
 # jsonpickle
 http://pypi.python.org/packages/source/j/jsonpickle/jsonpickle-0.4.0.tar.gz
+lxml.etree._ElementUnicodeResult can not be encoded by jsonpickle; jsonpickle.encode(lxml.etree._ElementUnicodeResult) always return null
+jsonpickle does not support timezone
 
 # yaml module 
 It is default module on GAE.
@@ -25,6 +27,9 @@ Manually install in on local: download from "http://pyyaml.org/wiki/PyYAML", run
 # gaepytz
 gaepytz-2011h
 http://pypi.python.org/pypi/gaepytz
+
+Asia/Shanghai: +08:06
+Available timezone can be seen in __init__.py
 
 # smallseg
 smallseg_0.6.tar.gz
