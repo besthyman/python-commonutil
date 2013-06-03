@@ -50,3 +50,6 @@ YUI Build Tool(builder\componentbuild\lib\yuicompressor\yuicompressor-2.4.2.jar)
 # jQCloud
 https://github.com/lucaong/jQCloud
 
+# jquery base64
+https://github.com/yckart/jquery.base64.js
+
