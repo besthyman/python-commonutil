@@ -410,7 +410,7 @@ class Request(dict):
         # result in 'k=v1&k=v2' and not k=%5B%27v1%27%2C+%27v2%27%5D
         return urllib.urlencode(d, True).replace('+', '%20')
  
-    def to_url(self):
+    def to_urlOld(self):
         """Serialize as a URL for a GET request."""
         base_url = urlparse.urlparse(self.url)
         try:
@@ -439,6 +439,15 @@ class Request(dict):
         url = (scheme, netloc, path, params,
                urllib.urlencode(query, True), fragment)
         return urlparse.urlunparse(url)
+
+    def to_url(self):
+        """Serialize as a URL for a GET request."""
+        scheme, netloc, path, query, fragment = urlparse.urlsplit(self.url.encode('utf-8'))
+        query = parse_qs(query)
+        for k, v in self.iteritems():
+            query.setdefault(k.encode('utf-8'), []).append(to_utf8_optional_iterator(v))
+        query = urllib.urlencode(query, True)
+        return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
     def get_parameter(self, parameter):
         ret = self.get(parameter)
