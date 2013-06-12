@@ -56,3 +56,6 @@ https://github.com/lucaong/jQCloud
 # jquery base64
 https://github.com/yckart/jquery.base64.js
 
+# jquery-cookie
+https://github.com/carhartl/jquery-cookie
+
