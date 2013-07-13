@@ -206,3 +206,17 @@ def load_userdict(f):
 				p[c] ={}
 			p = p[c]
 		p['']='' #ending flag
+
+def load_userdict_items(items):
+	global trie,total,FREQ
+	for item in items:
+		word = item[0]
+		freq = item[1]
+		FREQ[word] = log(freq / total)
+		p = trie
+		for c in word:
+			if not c in p:
+				p[c] ={}
+			p = p[c]
+		p['']='' #ending flag
+
