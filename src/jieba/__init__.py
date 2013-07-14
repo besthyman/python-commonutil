@@ -210,8 +210,9 @@ def load_userdict(f):
 def load_userdict_items(items):
 	global trie,total,FREQ
 	for item in items:
-		word = item[0]
-		freq = item[1]
+		word = item
+		# Set to a large number so the user dict has high priority.
+		freq = 217830
 		FREQ[word] = log(freq / total)
 		p = trie
 		for c in word:
